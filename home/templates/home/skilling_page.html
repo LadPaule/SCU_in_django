@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/moderna.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- ======= Hero Section ======= -->
+{% image self.featured_image original as img %}
+<!-- Slide 1 -->
+  <section id="hero">
+    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active" style="background-image: url('{{ img.url }}');">
+          <div class="carousel-container">
+            <div class="carousel-content animate__animated animate__fadeInUp">
+              <h2>{{self.featured_image_title}}</span></h2>
+              <p>{{self.brief_intro}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+ <!-- ======= Facts Section ======= -->
+ <section class="facts section-bg" data-aos="fade-up">
+  <div class="container">
+
+    <div class="row counters">
+
+      <div class="col-lg-4 col-6 text-center">
+        <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+        <p>Beneficiaries</p>
+      </div>
+
+      <div class="col-lg-4 col-6 text-center">
+        <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+        <p>Projects</p>
+      </div>
+
+      <div class="col-lg-4 col-6 text-center">
+        <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+        <p>impacted</p>
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- End Facts Section -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="row">
+        {% for card in self.cards.all %}
+          <div class="col-lg-4 col-md-6">
+            <div class="icon-box" data-aos="fade-up">
+              <div class="icon"><i class="bi bi-briefcase"></i></div>
+              <h4 class="title"><a href="{{card.card_lead}}">{{card.title}}</a></h4>
+              <p class="description">{{card.intro|richtext}}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section><!-- End Services Section -->
+{% endblock %}

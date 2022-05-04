@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+  <main id="main">
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title" data-aos="fade-up">
+        <h2>{{self.page_title}}</h2>
+        <p>{{ self.introduction|richtext }}</p>
+      </div>
+
+      <div class="row">
+        {% image self.child_photo original as image %}
+        <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+          <img src="{{ image.url }}" style="border-radius: 10px;" class="img-fluid" alt="">
+          <p>
+            You can support this with a monthly <br />
+            sponsorship of £ 35 equivalent to <br />
+            $ 50 equivalent to € 40 or locally ugx 165000.
+          </p>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
+          <h3>Thank you for selecting {{ self.child_name }}</h3><hr />
+          <p class="fst-italic">
+            Date of Birth: {{ self.child_DOB}}
+          </p>
+           {{self.child_story|richtext}}
+          <div style ="display: flex; flex-direction: row; justify-content: space-between;">
+            <button type="button" class="btn btn-secondary"><a style="color: #fff" href="{{ page.get_parent.url}}">Back</a></button>
+            <button type="button" class="btn btn-primary">sponsor</button>
+          </div
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End About Section -->
+
+
+</main>
+
+    {% block extra_js %}
+
+    {% endblock extra_js %}
+
+{% endblock content %}
+
+ 

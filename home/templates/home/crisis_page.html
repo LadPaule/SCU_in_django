@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/moderna.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- ======= Hero Section ======= -->
+{% image self.featured_image original as img %}
+<!-- Slide 1 -->
+  <section id="hero">
+    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active" style="background-image: url('{{ img.url }}');">
+          <div class="carousel-container">
+            <div class="carousel-content animate__animated animate__fadeInUp">
+              <h2>{{self.featured_image_title}}</span></h2>
+              <p>{{self.brief_intro}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+  <section id="about-us" class="about-us">
+    <div class="container">
+
+      <div class="row no-gutters">
+        {% for item in page.carousel.all %}
+        {% image item.image original as img %}
+
+        {% endfor %}
+        <div class="col-xl-7 ps-0 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
+          <div class="content d-flex flex-column justify-content-center">
+            {{ self.body|richtext }}
+          </div><!-- End .content-->
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End About Us Section -->
+
+
+{% endblock content %}
+{% block extra_js %}
+
+{% endblock extra_js %}

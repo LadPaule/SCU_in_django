@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+<section id="hero">
+  {% image self.featured_image original as img %}
+  <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active" style="background-image: url('{{ img.url }}');">
+        <div class="carousel-container">
+          <div class="carousel-content animate__animated animate__fadeInUp">
+            <h2>{{self.image_title}}</span></h2>
+            <p>{{self.image_caption}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->
+ <!-- ======= About Us Section ======= -->
+ <section id="about-us" class="about-us">
+  <div class="container">
+
+    <div class="row no-gutters">
+      <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-lg-start" data-aos="fade-right">
+        {% image self.side_image original as im %}
+        <div class="image-container">
+          <img src="{{ im.url }}" alt="" class="img-fluid" style="border-radius: 10px;">
+        </div>
+      </div>
+      <div class="col-xl-7 ps-0 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
+        <div class="content d-flex flex-column justify-content-center" style="margin: 20px; padding-top: -20px;">
+          <h3 style="color: blue; font-weight: bold; font-size: 24px;">EXTENDING A HELPING HAND TO THOSE IN NEED</h3>
+            {{ self.introduction|richtext }}
+          </div>
+        </div><!-- End .content-->
+      </div>
+    </div>
+
+  </div>
+</section><!-- End About Us Section -->
+<section id="services" class="services" style="margin-top: -20px">
+  <div class="container">
+    <div class="row">
+      {% for strategy in self.strategies.all  %}
+        <div class="col-lg-3 col-md-6">
+          <div class="icon-box" data-aos="fade-up">
+            <div class="icon"><i class="{{strategy.icon_class}}"></i></div>
+            <h4 style="text-align: center; "  class="title">{{strategy.strategy}}</h4><hr />
+            <p class="description">{{strategy.content|richtext}}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section><!-- End Services Section -->
+    <!-- ======= Our Team Section ======= -->
+    <section id="team" class="team section-bg">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Our <strong>Team</strong></h2>
+          <p>The Talented People Behind the Scenes of the Organization</p>
+        </div>
+          <div class="row">
+          {% for vol in page.get_children %}
+            {% with vol=vol.specific %}
+            {% image vol.featured_image original as volunteer %}
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+              <div class="member" data-aos="fade-up">
+                <div class="member-img">
+                  <img src="{{volunteer.url}}" class="img-fluid" alt="">
+                  <div class="social">
+                    <a href="{{vol.facebook}}" target="blank"><i class="bi bi-facebook"></i></a>
+                    <a href="mailto:{{vol.mail}}" target="blank"><i class="bi bi-envelope-plus-fill"></i></a>
+                    <a href="{{vol.linkedIn}}" target="blank"><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+                <div class="member-info">
+                  <h4><a href="{% pageurl vol %}">{{vol.volunteer_name}}</a></h4>
+                  <span>{{ vol.designation }}</span>
+                </div>
+              </div>
+            </div>
+          
+          {% endwith %}
+        {% endfor %}
+      </div>
+      </div>
+    </section><!-- End Our Team Section -->
+
+
+
+  {% block extra_js %}
+    
+  {% endblock extra_js %}
+
+{% endblock content %}

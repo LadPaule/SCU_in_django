@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+
+
+<!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div id="heroCarousel" data-bs-interval="3000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+      <div class="carousel-inner" role="listbox">
+        {% for item in page.carousel_items.all %}
+          {% image item.image original as img %}
+          <div class="carousel-item {% if forloop.first %} active {% endif %}" style="background-image: url({{ img.url }}); text-align: center;">
+            <div class="carousel-container">
+              <div class="carousel-content animate__animated animate__fadeInUp">
+                <h2>{{ item.image_title }}</h2>
+                <p>{{ item.image_intro|richtext }}</p>
+                <div class="text-center"><a href="{{item.image_link}}" class="btn-get-started">Read More</a></div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bi bi-arrow-left-circle-fill" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bi bi-arrow-right-circle-fill" aria-hidden="true"></span>
+      </a>
+    </div>
+  </section>
+<!-- End Hero -->
+<main id="main">
+
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-left">
+            <h3>We have <span style="font-weight: bold;"> <span data-purecounter-start="0" data-purecounter-end="276" data-purecounter-duration="2" class="purecounter"></span>
+              Children</span> in need of Education Support</h3>
+            <h4>Are you interested in Supporting a child go to school?</h4>
+            <p>Be a part of this life changing program, support child education with Smile charity Uganda</p>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" href="{{page.current_need_link}}">see more</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Cta Section -->
+  <!-- ======= Services Section ======= -->
+  <section id="services" class="services">
+    <div class="container">
+      
+      <div class="row">
+        {% for card in page.cards.all %}
+          <div class="col-lg-4 col-md-6">
+            <div class="icon-box" data-aos="fade-up">
+              <div class="icon"><i class="{{card.icon_class}}"></i></div>
+              <h4 class="title"><a href="">{{card.title}}</a></h4>
+              <p class="description">{{ card.intro|richtext }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section><!-- End Services Section -->
+  {% block extra_js %}
+    
+  {% endblock extra_js %}
+
+{% endblock content %}

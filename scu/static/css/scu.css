@@ -1636,6 +1636,24 @@ section {
 .sponsor_pagination {
   margin: auto;
   width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+input :focus{
+  border-bottom:rgb(10, 106, 231) solid 2px;
+}
+input{
+  border-bottom:rgb(10, 106, 231) solid 2px;
+  outline: none;
+}
+.spon{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 .sponsor_pagination li{
   margin: 0 5px;

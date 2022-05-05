@@ -1,5 +1,6 @@
 from email.policy import default
 from django.db import models
+import datetime
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from wagtail.core.models import Page, Orderable
 from modelcluster.fields import ParentalKey
@@ -43,16 +44,16 @@ class SponsorListingPage(RoutablePageMixin, Page):
 
         return context
 
-class SponsorPage(Page):
+class SponsorPage(RoutablePageMixin, Page):
     child_photo = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
     child_name = models.CharField(blank=True, max_length=255)
-    child_DOB = models.CharField(blank=True, max_length=255)
+    child_DOB = models.CharField(blank=True, max_length=255, default="unknown")
     child_story = RichTextField(blank=True, null=True)
-    call_to_action=RichTextField(blank=True, null=True)
 
     search_fields = Page.search_fields + [
-        index.SearchField('child_name'),
-        index.SearchField('child_DOB'),
+        index.SearchField('child_name', partial_match=True, boost=10),
+        index.SearchField('child_DOB', partial_match=True),
+        index.SearchField('child_story', partial_match=True),
     ]
 
     content_panels = Page.content_panels + [
@@ -60,8 +61,16 @@ class SponsorPage(Page):
         FieldPanel('child_name'),
         FieldPanel('child_DOB'),
         FieldPanel('child_story'),
-        FieldPanel('call_to_action'),
     ]
+
+    @route(r"^search/$")
+    def search(self, request, *args, **kwargs):
+        search_query = request.GET.get("q", None)
+        self.sponsored_pages = self.get_sponsored_pages().objects.live().autocomplete("child_name", search_query)
+        if search_query:
+            self.sponsored_pages = self.sponsored_pages.search(search_query)
+        return self.render(request)
+
 class AboutPage(Page):
     featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
     image_title = models.CharField(max_length=255, blank=True, null=True)

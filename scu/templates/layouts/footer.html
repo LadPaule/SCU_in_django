@@ -38,7 +38,8 @@
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>Join Our Newsletter</h4>
             <p>sign up to join many other people and never miss our Newsletters and other Publications</p>
-            <form action="" method="post">
+            <form action="{% url 'newsletter-signup' %}" method="POST">
+              {% csrf_token %}
               <input type="email" name="email"><input type="submit" value="Subscribe">
             </form>
           </div>
@@ -65,4 +66,26 @@
     </div>
   </footer><!-- End Footer -->
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  
+  {% block extra_js %}
+<script>
+    document.getElementById("newsletter-signup-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = e.target.elements[0].value;
+        if (email && email.includes("@")) {
+            fetch(e.target.action, {
+                method: e.target.method,
+                body: JSON.stringify({email: email})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("All signed up! Thank you for joining the newsletter!")
+                }
+            })
+            .catch(err => {
+                alert("Looks like we're having an error. Please try again in a moment.")
+            });
+        }    
+    });
+</script>
+{% endblock %}

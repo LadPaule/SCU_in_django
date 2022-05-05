@@ -8,6 +8,42 @@
 
 {% block content %}
   <main id="main">
+    <!--Search-->
+    <div class="col-lg-6 spon">
+      <div class="sponsored_sidebar">
+        <div class="sidebar-item search-form">
+          <form style="display: flex; justify-content: center;" action="{% url 'search' %}" method="get">
+            <input style=" border: #fff;  "class="spon_field"type="text" placeholder="search for children"name="query" value="{{ search_query }}">
+            <button style="margin-left: -5px; color: #fff; background: blue;"type="submit" value="Search"><i class="bi bi-search"></i></button>
+          </form>
+        </div><!-- End sidebar search formn-->
+      </div>
+      {% if search_results %}
+        <div class="result_section alert alert-success" role="alert" style="display: flex; justofy-content: senter;">
+          <ul style="display: flex; flex-direction: column; justify-content: center;">
+              {% for result in search_results %}
+                  <li style="list-style: none; ">
+                      <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
+                      {% if result.search_description %}
+                          {{ result.search_description|safe }}
+                      {% endif %}
+                  </li>
+                  <button class="btn btn-primary" onclick="window.location.href='{% url 'search' %}'">Back to search</button>
+              {% endfor %}
+
+          </ul>
+        </div>
+      {% elif search_query %}
+        <div class="result_section">
+          <h3>No results found for <strong>{{ search_query }}</strong></h3>
+          <button class="btn btn-primary" onclick="window.location.href='{% url 'search' %}'">Back to search</button>
+        </div>
+
+        
+    {% endif %}
+    <!-- End sidebar -->
+
+    </div><!-- End blog sidebar -->
       <section id="team" class="team section-bg">
         <div class="container">
           <div class="section-title" data-aos="fade-up">

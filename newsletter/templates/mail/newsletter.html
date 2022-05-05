@@ -1,0 +1,61 @@
+{% extends "mail/base.html" %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+{% block email_body %}
+  <mj-section padding-bottom="0px">
+    <mj-column >
+      <mj-image width="144px" align="center" src="{%static 'brand/sculogo.png' %}" href="https://www.smilecharityuganda.org" alt=""></mj-image>
+    </mj-column>
+    <mj-column></mj-column>
+    <mj-column>
+      <mj-text font-family="Helvetica,Arial,sans-serif" line-height="120%" text-decoration="underline" align="left">NEWSLETTER<br />{{ self.newsletter_date }}</mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-section background-color="#000001">
+    <mj-column>
+      <mj-text padding-top="0px" padding-bottom="0px" color="#FFFFFE" font-family="Helvetica,Arial,sans-serif" font-size="14px" line-height="120%">Dear {{ self.newsletter_receiver }}, <br /><br /> {{ self.newsletter_introduction|richtext }}</mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-section>
+    <mj-column background-color="#FFFFFE">
+      {% image self.header_background original as bg_img %}
+      <mj-image padding-bottom="0px" padding-top="0px" padding-left="0px" padding-right="0px" src="{{ bg_img.url }}" href="https://www.smilecharityuganda.org" alt=""></mj-image>
+      <mj-text padding-top="25px" padding-bottom="25px" font-family="Helvetica,Arial,sans-serif" font-size="14px" line-height="120%">{{ self.newsletter_first_story|richtext }}</mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-section>
+    <mj-column background-color="#FFFFFE">
+      {% image self.second_story_image original as imag %}
+      <mj-image padding-bottom="0px" padding-top="0px" padding-left="0px" padding-right="0px" src="{{imag.url}}" href="https://www.smilecharityuganda.org" alt=""></mj-image>
+      <mj-text padding-top="25px" padding-bottom="25px" font-family="Helvetica,Arial,sans-serif" font-size="14px" line-height="120%">{{ self.newsletter_second_story|richtext }}</mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-section>
+    <mj-column background-color="#FFFFFE">
+      <mj-text padding-top="25px" padding-bottom="25px" font-family="Helvetica,Arial,sans-serif" font-size="14px" line-height="120%">{{ self.newsletter_third_story|richtext }}</mj-text>
+    </mj-column>
+  </mj-section>
+
+  <mj-section background-color="#0047AB">
+    <mj-column>
+      <mj-text color="#ffee00" font-family="Helvetica,Arial,sans-serif" font-size="14px">Every Blessing,<br /> The Smile Charity Uganda Team</mj-text>
+    </mj-column>
+  </mj-section>
+
+  {% comment %} Email in Browser {% endcomment %}
+  <mj-section padding-top="0px" padding-bottom="0px">
+    <mj-column>
+      <mj-text font-family="Helvetica,Arial,sans-serif" padding-top="0px" align="center">See this email in your browser <a href="#" style="text-decoration:none;color:#2DDCB4">here</a></mj-text>
+      <mj-divider padding-left="0px" padding-right="0px"></mj-divider>
+    </mj-column>
+  </mj-section>
+  {% comment %} Email in Browser {% endcomment %}
+  <mj-section padding-bottom="0px" padding-top="0px">
+    <mj-column>
+      <mj-text padding-bottom="0px" padding-top="0px" font-family="Helvetica,Arial,sans-serif" font-size="10px" line-height="12px">Your email address is on this list as a result of a subscription, information request, competition, or other correspondence you may have had with us in the past. If you would like to be removed from our list, check the email address this newsletter
+        was sent to and use the following link: <a href="" style="text-decoration:none;color:#2DDCB4">Unsubscribe</a>. Privacy policy available <a href="https://smilecharityuganda.org/privacy" style="text-decoration:none;color:#2d7cdc">here</a>.</mj-text>
+      <mj-text padding-bottom="0px" font-family="Helvetica,Arial,sans-serif" font-size="10px" line-height="12px">Smile Charity Uganda <a href="https://www.arturia.com" style="text-decoration:none;color:#2DDCB4">https://smilecharityuganda.org</a> - Contact: <a href="mailto:info@smilecharityuganda.org" style="text-decoration:none;color:#2DDCB4">info</a><br /> Smile Charity Uganda
+        P.O.Box, 5895 Kampala - UG<br /></mj-text>
+      <mj-divider padding-left="0px" padding-right="0px"></mj-divider>
+    </mj-column>
+  </mj-section>
+{% endblock email_body %}

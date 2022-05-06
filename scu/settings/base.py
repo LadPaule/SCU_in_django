@@ -185,7 +185,7 @@ WAGTAILSEARCH_BACKENDS = {
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 MAILJET_API_KEY = config('mailjet_api_key')
 MAILJET_API_SECRET = config('mailjet_secret_key')
@@ -199,5 +199,5 @@ EMAIL_HOST = config('email_host')
 # Port for sending email.
 EMAIL_PORT = 587
 # SMTP Authentication
-EMAIL_HOST_USER = 'login_username'
-EMAIL_HOST_PASSWORD = 'login password'
+EMAIL_HOST_USER = config('email_user')
+EMAIL_HOST_PASSWORD = config('email_password')

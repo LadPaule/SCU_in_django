@@ -15,7 +15,7 @@ urlpatterns = [
 
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
-    path('newsletter/signup/', newsletter_views.signup, name='newsletter-signup'),
+    path('newsletter/post/', newsletter_views.post, name='newsletter-post'),
     path('search/', search_views.search, name='search'),
 
 ]

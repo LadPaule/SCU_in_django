@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/moderna.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+ <!-- ======= Privacy section Section ======= -->
+ <section id="faq" class="faq section-bg">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>{{ page.intro }}</h2>
+    </div>
+
+    <div class="row  d-flex align-items-stretch">
+      {{ page.Body|richtext }}
+    </div>
+
+  </div>
+</section><!-- End Privacy section Section -->
+{% endblock content%}
+  
+{% block extra_js %}
+{% endblock extra_js %}

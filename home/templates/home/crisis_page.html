@@ -24,23 +24,80 @@
       </div>
     </div>
   </section><!-- End Hero -->
-  <section id="about-us" class="about-us">
+  {% comment %} <section id="about-us" class="about-us">
     <div class="container">
-
       <div class="row no-gutters">
-        {% for item in page.carousel.all %}
-        {% image item.image original as img %}
+        {% image page.featured_image original as img %}
+        <div class="col-lg-6 order-lg-1 order-2">
+          <img src="{{img.url}}"/>
 
-        {% endfor %}
         <div class="col-xl-7 ps-0 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
           <div class="content d-flex flex-column justify-content-center">
+            <section class="facts section-bg" data-aos="fade-up">
+              <div class="container">
+                <div class="row counters">
+                  <div class="col-lg-4 col-6 text-center">
+                    <span style="font-weight: bold;" data-purecounter-start="0" data-purecounter-end="500" data-purecounter-duration="1" class="purecounter"></span>
+                    <p>families have been helped</p>
+                  </div>
+                </div>
+              </div>
+            </section><!-- End Facts Section -->
             {{ self.body|richtext }}
           </div><!-- End .content-->
         </div>
       </div>
 
     </div>
+  </section><!-- End About Us Section --> {% endcomment %}
+   <!-- ======= About Us Section ======= -->
+   <section id="about-us" class="about-us">
+    <div class="container">
+
+      <div class="row no-gutters">
+        {% image page.side_image original as image %}
+        <div style="background: url({{ image.url }}) center center no-repeat;" class="image  col-xl-5 d-flex align-items-stretch justify-content-center justify-content-lg-start" data-aos="fade-right"></div>
+        <div class="col-xl-7 ps-0 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
+          <div class="content d-flex flex-column justify-content-center">
+              <div class="container">
+                <div class="row counters">
+                  <div class="text-right">
+                    <p style="font-weight: normal; font-size: 24px;">More than <span style="font-weight: bold; color: blue;" data-purecounter-start="0" data-purecounter-end="1440" data-purecounter-duration="1" class="purecounter"></span>&nbsp; Families have been impacted</p>
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+              {{ self.body|richtext }}
+            </div>
+          </div><!-- End .content-->
+        </div>
+      </div>
+
+    </div>
   </section><!-- End About Us Section -->
+  <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Asked Questions about Crisis care</h2>
+        </div>
+
+        <div class="row  d-flex align-items-stretch">
+        {% for faq in page.faqs.all %}
+
+          <div class="col-lg-6 faq-item" data-aos="fade-up">
+            <h4>{{faq.question}}</h4>
+            <p>
+              {{faq.answer}}
+            </p>
+          </div>
+        {% endfor %}
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+
 
 
 {% endblock content %}

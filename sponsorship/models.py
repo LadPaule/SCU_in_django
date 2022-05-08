@@ -30,7 +30,7 @@ class SponsorListingPage(RoutablePageMixin, Page):
         #@TODO: Handling Pagination
         all_sponsored_pages = SponsorPage.objects.live().public().order_by('-last_published_at')
 
-        paginator = Paginator(all_sponsored_pages, 4) #@TODO: paginate change integer to 8 per page
+        paginator = Paginator(all_sponsored_pages, 8) #@TODO: paginate change integer to 8 per page
         page = request.GET.get('page')
         try:
             sponsored_pages = paginator.page(page)

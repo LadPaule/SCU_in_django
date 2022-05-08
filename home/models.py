@@ -125,24 +125,16 @@ class CrisisPage(Page):
     featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
     featured_image_title= models.CharField(blank=True, max_length=255)
     brief_intro = models.CharField(blank=True, max_length=750)
+    side_image= models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
     body = RichTextField(blank=True, null=True)
     content_panels = Page.content_panels + [
         ImageChooserPanel('featured_image'),
         FieldPanel('featured_image_title', help_text="This is the title of the page or Image"),
         FieldPanel('brief_intro', help_text="This is the title of the page"),
+        ImageChooserPanel('side_image'),
         FieldPanel('body', help_text="This is the body of the page"),
-        InlinePanel('carousel', label="Crisis Page Sections", max_num=4, min_num=1, help_text="This is the discipleship page cards section"),
         InlinePanel('faqs', label="Crisis Page Sections", max_num=3, min_num=1, help_text="This is the discipleship page cards section"),
     ]
-class CrisisPageCarousel(Orderable):
-    page = ParentalKey('CrisisPage', on_delete=models.CASCADE, related_name='carousel')
-    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
-    caption = models.CharField(blank=True, max_length=255)
-    panels = [
-        ImageChooserPanel('image'),
-        FieldPanel('caption'),
-    ]
-
 class CrisisPageFAQS(Orderable):
     page = ParentalKey('CrisisPage',on_delete=models.CASCADE, related_name='faqs')
     question = models.CharField(blank=True, max_length=255)
@@ -171,3 +163,46 @@ class ContactPage(AbstractEmailForm):
     ]
 class ContactPageFormField(AbstractFormField):
     page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name='form_fields')
+
+class ParticipagePage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    tours_image_1 = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    tours_image_2 = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    tours_image_3 = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    tours_text = RichTextField(blank=True, null=True)
+    missions_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    missions_text = RichTextField(blank=True, null=True)
+    support_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    support_text = RichTextField(blank=True, null=True)
+    gap_year_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    gap_year_text = RichTextField(blank=True, null=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        ImageChooserPanel('tours_image_1'),
+        ImageChooserPanel('tours_image_2'),
+        ImageChooserPanel('tours_image_3'),
+        FieldPanel('tours_text', help_text="This is the text about the tours and safaris"),
+        ImageChooserPanel('missions_image'),
+        FieldPanel('missions_text', help_text="This is the text about the missions"),
+        ImageChooserPanel('support_image'),
+        FieldPanel('support_text', help_text="This is the text about the support"),
+        ImageChooserPanel('gap_year_image'),
+        FieldPanel('gap_year_text', help_text="This is the text about the gap year"),
+    ]
+
+class PrivacyPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        FieldPanel('Body', help_text="This is the body of the page"),
+    ]
+
+class TermsPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        FieldPanel('Body', help_text="This is the body of the page"),
+    ]

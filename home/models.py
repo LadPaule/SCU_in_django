@@ -165,6 +165,8 @@ class ContactPageFormField(AbstractFormField):
     page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name='form_fields')
 
 class ParticipagePage(Page):
+    featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    bg_design_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
     intro = models.CharField(blank=True, null=True,max_length=750)
     tours_image_1 = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
     tours_image_2 = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
@@ -178,6 +180,8 @@ class ParticipagePage(Page):
     gap_year_text = RichTextField(blank=True, null=True)
 
     content_panels = Page.content_panels + [
+        ImageChooserPanel('featured_image'),
+        ImageChooserPanel('bg_design_image'),
         FieldPanel('intro', help_text="This is the introduction of the page"),
         ImageChooserPanel('tours_image_1'),
         ImageChooserPanel('tours_image_2'),

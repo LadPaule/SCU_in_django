@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/flexi.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+{% image self.featured_image original as img %}
+{% image self.bg_design_image original as bg %}
+<section style="background: url('{{ bg.url }}'); top center no-repeat;"id="hero" class="hero d-flex align-items-center">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <h1 data-aos="fade-up">Get Involved</h1>
+        <h2 data-aos="fade-up" data-aos-delay="400">{{ self.intro }}</h2>
+        <div data-aos="fade-up" data-aos-delay="600">
+          <div class="text-center text-lg-start">
+ 
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="{{ img.url}}" class="img-fluid" alt="">
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about-us" class="about-us">
+      <div class="container">
+
+        <div class="row no-gutters">
+          <div> 
+            <h2 class="safari" style="font-size: 40px; font-weight: bold; color: #010130;">Take a Safari Trip</h2>
+          </div>
+          <div class="col-xl-5 d-flex align-items-stretch  justify-content-lg-start" data-aos="fade-right">
+          
+            <div style="display: flex; justify-content: center; align-items: center; font-size: 18px;">
+             {{ self.tours_text|richtext }}
+            </div>
+          </div>
+          <div class="col-xl-7 ps-0 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
+            <div class="content d-flex flex-column justify-content-center">
+              <div class="row">
+                <div class="col-md-6 icon-box" data-aos="fade-up">
+                  {% image self.tours_image_1 original as tours1 %}
+                  <img src={{tours1.url}} alt="" width="800px"/>
+                </div>
+                <div class="col-md-6 icon-box done" data-aos="fade-up" data-aos-delay="100">
+
+                </div>
+                <div class="col-md-6 icon-box col-sm-12 done" data-aos="fade-up" data-aos-delay="200">
+                  {% image self.tours_image_2 original as tours2 %}
+                  <img src={{tours2.url}} alt="" width="400px" height="300px"/>
+                </div>
+                <div class="col-md-6 icon-box done" data-aos="fade-up" data-aos-delay="300">
+                  {% image self.tours_image_3 original as tours3 %}
+                  <img src={{tours3.url}} alt="" width="400px" height="300px"/>
+                </div>
+              </div>
+            </div><!-- End .content-->
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  <!-- ======= Services Section ======= -->
+  <section id="services" class="services">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          {% image self.missions_image original as ga %}
+          <div class="engage" data-aos="fade-up">
+            <img src={{ga.url}} alt="" width="100%" height="100%"/>
+            <p class="description">{{ self.missions_text|richtext }}</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          {% image self.support_image original as gag %}
+          <div class="engage" data-aos="fade-up" data-aos-delay="100">
+            <img style="border-radius: 10px;" src={{gag.url}} alt="" width="100%" height="100%"/>
+            <p class="description">{{ self.support_text|richtext }}</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          {% image self.gap_year_image original as gag %}
+          <div class="engage" data-aos="fade-up" data-aos-delay="200">
+            <img style="border-radius: 10px;" src={{gag.url}} alt="" width="100%" height="100%"/>
+            <p class="description">{{ self.gap_year_text|richtext }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Services Section -->
+
+{% endblock content%}
+  
+
+
+{% block extra_js %}
+{% endblock extra_js %}

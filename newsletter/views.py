@@ -1,20 +1,16 @@
 import json 
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
-from django.core.mail import EmailMessage
-from django.http import request
-from django.conf import settings
 
+from .forms import ContactForm
+from birdsong.models import Contact
+from django.http import request, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-def post(request):
-    email = request.POST.get("email")
-    response = redirect('/')
-    data = EmailMessage(
-        subject="New email newsletter subscription",
-        body="You have a new email newsletter subscription, from: " + email,
-        from_email= settings.EMAIL_HOST_USER,
-        to=[settings.EMAIL_HOST_USER],
-        reply_to=[email]
-    )
-    data.send()
-    return HttpResponseRedirect('/')
+@csrf_exempt
+def signup(request):
+    if request.method == "POST":
+        data = json.loads(request.body.decode('utf-8'))
+        form = ContactForm(data)
+        if form.is_valid():
+            Contact.objects.get_or_create(email=form.cleaned_data["email"])
+            return JsonResponse({"success": True})
+        return JsonResponse({"success": False})

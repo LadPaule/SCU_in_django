@@ -7,15 +7,16 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from wagtail.contrib.sitemaps.views import sitemap
 
 from search import views as search_views
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
-
+    path('sitemap.xml', sitemap, name='sitemap'),
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
-    path('newsletter/post/', newsletter_views.post, name='newsletter-post'),
+    path('newsletter/signup/', newsletter_views.signup, name='newsletter-signup'),
     path('search/', search_views.search, name='search'),
 
 ]

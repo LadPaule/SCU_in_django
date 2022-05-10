@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from wagtail.core.models import Page, Orderable
@@ -13,6 +12,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtailmedia.edit_handlers import MediaChooserPanel
 from wagtail.search import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
+from wagtail.snippets.models import register_snippet
 
 # Home Page
 class HomePage(Page):
@@ -346,6 +346,20 @@ class SponsorshipPage(AbstractEmailForm):
             FieldPanel('subject'),
         ], heading="Email Settings"),
     ]
-
 class SponsorshipPageFormField(AbstractFormField):
     page = ParentalKey('SponsorshipPage', on_delete=models.CASCADE, related_name='form_fields')
+
+
+class NewsletterSubscription(models.Model):
+    email = models.EmailField()
+    panels = [
+        FieldPanel('email'),
+    ]
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = "Newsletter subscriber"
+        verbose_name_plural = "Newsletter subscribers"
+
+register_snippet(NewsletterSubscription)

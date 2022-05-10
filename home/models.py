@@ -210,3 +210,142 @@ class TermsPage(Page):
         FieldPanel('intro', help_text="This is the introduction of the page"),
         FieldPanel('Body', help_text="This is the body of the page"),
     ]
+
+class YdfPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    design_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        ImageChooserPanel('design_image', help_text="This is the designimage of the page"),
+        ImageChooserPanel('featured_image'),
+        FieldPanel('Body', help_text="This is the body of the page"),
+    ]
+
+class CbcPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    design_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        ImageChooserPanel('design_image', help_text="This is the designimage of the page"),
+        ImageChooserPanel('featured_image'),
+        FieldPanel('Body', help_text="This is the body of the page"),
+    ]
+
+class PdfPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    design_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        ImageChooserPanel('featured_image'),
+        ImageChooserPanel('design_image', help_text="This is the designimage of the page"),
+        FieldPanel('Body', help_text="This is the body of the page"),
+    ]
+class ChildsponsorshipPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    design_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        ImageChooserPanel('featured_image'),
+        ImageChooserPanel('design_image'),
+        FieldPanel('Body', help_text="This is the body of the page"),
+        InlinePanel('faqs', label ="Child Sponsorship FAQs")
+    ]
+class Childsponsoshipfaqs(Orderable):
+    page = ParentalKey(ChildsponsorshipPage, related_name='faqs')
+    question = models.CharField(max_length=500, blank=True, null=True)
+    answer = models.CharField(max_length=500, blank=True, null=True)
+    panels = [
+        FieldPanel('question'),
+        FieldPanel('answer'),
+    ]
+class ProfessionPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    design_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        ImageChooserPanel('design_image'),        
+        ImageChooserPanel('featured_image'),
+        FieldPanel('Body', help_text="This is the body of the page"),
+        InlinePanel('faqs', label ="Profession and Career Twining FAQs")
+    ]
+class ProfessionPagefaqs(Orderable):
+    page = ParentalKey(ProfessionPage, related_name='faqs')
+    question = models.CharField(max_length=500, blank=True, null=True)
+    answer = models.CharField(max_length=500, blank=True, null=True)
+    panels = [
+        FieldPanel('question'),
+        FieldPanel('answer'),
+    ]
+
+class TestmonialsPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        InlinePanel('cards', label="Testmonials", help_text="This is the body of the page"),
+    ]
+
+class TestmonialPageCards(Orderable):
+    page = ParentalKey('TestmonialsPage', related_name='cards')
+    name = models.CharField(max_length=250)
+    designation = models.CharField(max_length=250)
+    image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    body = RichTextField(blank=True, null=True)
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('designation'),
+        ImageChooserPanel('image'),
+        FieldPanel('body'),
+    ]
+
+class WomenPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    design_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        ImageChooserPanel('featured_image'),
+        ImageChooserPanel('design_image', help_text="This is the designimage of the page"),
+        FieldPanel('Body', help_text="This is the body of the page"),
+    ]
+
+class YouthPage(Page):
+    intro = models.CharField(blank=True, null=True,max_length=750)
+    featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    design_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    Body = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the introduction of the page"),
+        ImageChooserPanel('design_image'),
+        ImageChooserPanel('featured_image'),
+        FieldPanel('Body', help_text="This is the body of the page"),
+    ]
+
+class SponsorshipPage(AbstractEmailForm):
+    intro = RichTextField(blank=True, null=True)
+    thank_you_message = RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', help_text="This is the title of the page"),
+        InlinePanel('form_fields', label="Contact form Sections", help_text="This is the contact page form section"),
+        FieldPanel('thank_you_message', help_text="This is the title of the page"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], heading="Email Settings"),
+    ]
+
+class SponsorshipPageFormField(AbstractFormField):
+    page = ParentalKey('SponsorshipPage', on_delete=models.CASCADE, related_name='form_fields')

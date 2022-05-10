@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags crispy_forms_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/moderna.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- ======= Contact Section ======= -->
+  <main id="main">
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="row justify-content-center" data-aos="fade-up">
+        <div class="col-lg-10">
+          <div class="section-title text-center">
+            <h2 style="font-weight: bold; color: blue;">Child Sponsorship Application Form</h2>
+            <p class="text-muted">{{ self.intro|richtext }}</p>
+          </div>  
+        </div>
+
+      </div>
+
+      <div class="row mt-5 justify-content-center" data-aos="fade-up">
+        <div class="col-lg-10">
+          <form action="{% pageurl page %}" method="POST" role="form" class="php-email-form">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 form-group">
+                  {{ form.your_name|as_crispy_field }}
+          
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {{ form.postal_address|as_crispy_field }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+               {{ form.country|as_crispy_field }}
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {{ form.city|as_crispy_field }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {{ form.telephone|as_crispy_field }}
+              </div>
+         
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+               {{ form.mobile_no|as_crispy_field }}
+              </div>
+            </div>
+            <div class="form-group mt-3 mt-md-0">
+              {{ form.email_address|as_crispy_field }}
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+               {{ form.preffered_age_range|as_crispy_field }}
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {{ form.mode_of_support|as_crispy_field }}
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              {{ form.any_other_preferances|as_crispy_field }}
+            </div>
+
+         
+
+            <div class="text-center"><button type="submit">Send Message</button></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+  {% block extra_js %}
+    {% comment %}class="form-group mt-3"  {% endcomment %}
+  {% endblock extra_js %}
+
+{% endblock content %}

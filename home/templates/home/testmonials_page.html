@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/moderna.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  <!-- ======= Testimonials Section ======= -->
+  <section id="testimonials" class="testimonials">
+    <div class="section-title">
+      <h2>SCU Testmonials</h2>
+      <p style="font-size: 18px; ">{{ self.intro }}</p>
+    </div>
+    <div class="container">
+      <div class="row">
+
+        {% for card in self.cards.all %}
+        {% image card.image original as im %}
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="testimonial-item mt-4">
+              <img src="{{ im.url }}" class="testimonial-img" alt="">
+              <h3>{{ card.name }}</h3>
+              <h4>{{ card.designation }}</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                {{ card.body|richtext }}
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </section><!-- End Testimonials Section -->
+{% endblock content%}
+  
+{% block extra_js %}
+{% endblock extra_js %}

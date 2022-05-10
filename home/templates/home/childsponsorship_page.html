@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/flexi.css' %}">
+{% comment %} <link rel="stylesheet" href="{% static 'css/moderna.css' %}"> {% endcomment %}
+{% endblock extra_css %}
+
+{% block content %}
+
+{% image self.featured_image original as img %}
+{% image self.design_image original as bg %}
+<section style="background: url('{{ bg.url }}'); top center no-repeat;"id="hero" class="hero d-flex align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <h1 data-aos="fade-up">Become a Sponsor?</h1>
+        <h2 data-aos="fade-up" data-aos-delay="400">join the {{ self.intro }}</h2>
+        <div data-aos="fade-up" data-aos-delay="600">
+          <div class="text-center text-lg-start">
+            <a href="/sponsor" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+              <span>Support a child</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="{{ img.url}}" class="img-fluid" alt="">
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->
+ <!-- ======= About Section ======= -->
+ <section id="about" class="about">
+
+  <div class="container" data-aos="fade-up">
+    <div class="row gx-0">
+
+      <div class="" data-aos="fade-up" data-aos-delay="200">
+        <div class="content">
+          <h4>{{ self.Body|richtext }}</h4>
+          <div class="text-center text-lg-start">
+            <a href="/sponsor" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+              <span>See our waiting list</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section><!-- End About Section -->
+  <!-- ======= Frequently Asked Questions Section ======= -->
+  <section id="faq" class="faq section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2 style="font-weight: bold;">Asked Questions about {{ self.title }}</h2>
+      </div>
+
+      <div class="row  d-flex align-items-stretch">
+      {% for faq in page.faqs.all %}
+
+        <div class="col-lg-6 faq-item" data-aos="fade-up">
+          <h4 style="color: blue; font-wight: bold; font-size: 24px;">{{faq.question}}</h4>
+          <p>
+            <i>
+            {{faq.answer}}
+            </i>
+          </p>
+        </div>
+      {% endfor %}
+      </div>
+
+    </div>
+  </section><!-- End Frequently Asked Questions Section -->
+
+
+
+{% endblock content%}
+  
+{% block extra_js %}
+{% endblock extra_js %}

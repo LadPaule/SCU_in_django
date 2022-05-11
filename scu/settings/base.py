@@ -113,7 +113,6 @@ DATABASES = {
 
 MJML_EXEC_CMD = './node_modules/.bin/mjml'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -185,21 +184,18 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
+# BASE_URL = 'http://example.com'
+EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-MAILJET_API_KEY = config('mailjet_api_key')
-MAILJET_API_SECRET = config('mailjet_secret_key')
-
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-
-EMAIL_TIMEOUT = 30
-# Host for sending email.
 EMAIL_HOST = config('email_host')
-# Port for sending email.
-EMAIL_PORT = 587
-# SMTP Authentication
-EMAIL_HOST_USER = config('email_user')
-EMAIL_HOST_PASSWORD = config('email_password')
+MAILJET_API_KEY = config('api_key')
+MAILJET_API_SECRET = config('secret_key')
+DEFAULT_FROM_EMAIL = config('from_email')
+
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_TIMEOUT = 30
+
+DEFAULT_FROM_EMAIL = 'info@smilecharityuganda.org'

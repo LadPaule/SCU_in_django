@@ -1,4 +1,4 @@
-  <!-- ======= Footer ======= -->
+ <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
@@ -36,6 +36,11 @@
           </div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
+            {% for message in messages  %}
+              <div class="alert alert-success" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
             <h4>Join Our Newsletter</h4>
             <p>sign up to join many other people and never miss our Newsletters and other Publications</p>
             <form action="{% url 'newsletter-signup' %}" method="POST">

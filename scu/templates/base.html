@@ -31,9 +31,10 @@
 
         {# Global javascript #}
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        {% include 'seo/scripts.html' %}
         <script type="text/javascript" src="{% static 'js/scu.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/newsletter.js' %}"></script>
-        {% include 'seo/scripts.html' %}
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}

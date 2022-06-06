@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/moderna.css' %}">
+{% endblock extra_css %}
+{% block content %}
+
+<section id="team" class="team section-bg">
+  <div class="container col-lg-8">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Your message has been received!</h2>
+      {{ self.thank_you_message|richtext }}
+      <div style ="display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 10px;">
+        <button type="button" class="btn btn-secondary"><a style="color: #fff" href="/">Back to home</a></button>
+        <span></span>
+        <button type="button" class="btn btn-primary"><a style="color: #fff" href="/sponsor">See children in need of sponsorship</a></button>
+      </div
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -16,24 +16,24 @@
       </div>
 
       <div class="row">
-        {% image self.child_photo original as image %}
+        {% image self.beneficiary_photo original as image %}
         <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
           <img src="{{ image.url }}" style="border-radius: 10px;" class="img-fluid" alt="">
           <p>
-            You can support {{ self.child_name }} with a monthly <br />
+            You can support {{ self.beneficiary_name }} with a monthly <br />
             sponsorship of £ 35 equivalent to <br />
             $ 50 equivalent to € 40 or locally ugx 165000.
           </p>
         </div>
         <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
-          <h3>Thank you for selecting {{ self.child_name }}</h3><hr />
+          <h3>Thank you for selecting {{ self.beneficiary_name }}</h3><hr />
           <p class="fst-italic">
-            Date of Birth: {{ self.child_DOB}}
+            career: {{ self.Career_of_interest}}
           </p>
-           {{self.child_story|richtext}}
+           {{self.beneficiary_story|richtext}}
           <div style ="display: flex; flex-direction: row; justify-content: space-between;">
             <button type="button" class="btn btn-secondary"><a style="color: #fff" href="{{ page.get_parent.url}}">Back</a></button>
-            <button type="button" class="btn btn-primary"><a style="color: #fff" href="/child-sponsorship-application-form">sponsor</a></button>
+            <button type="button" class="btn btn-primary"><a style="color: #fff" href="/beneficiary-sponsorship-application-form">sponsor</a></button>
           </div
         </div>
       </div>

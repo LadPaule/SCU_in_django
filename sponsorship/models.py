@@ -112,3 +112,55 @@ class VolunteerPage(Page):
         FieldPanel('mail'),
         FieldPanel('introduction'),
     ]
+
+class ProfessionListingPage(RoutablePageMixin, Page):
+    page_title = models.CharField(max_length=255, blank=True, null=True)
+    introduction=RichTextField(blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('page_title', help_text="This is the title of the page"),
+        FieldPanel('introduction', help_text="This is the introduction of the page"),  
+    ]
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        #@TODO: Handling Pagination
+        all_sponsored_pages = TwinningBeneficiaryPage.objects.live().public().order_by('-last_published_at')
+
+        paginator = Paginator(all_sponsored_pages, 8) #@TODO: paginate change integer to 8 per page
+        page = request.GET.get('page')
+        try:
+            sponsored_pages = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            sponsored_pages = paginator.page(1)    
+        except EmptyPage:  
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            sponsored_pages = paginator.page(paginator.num_pages)
+        context["sponsored_pages"] = sponsored_pages
+
+        return context
+class TwinningBeneficiaryPage(RoutablePageMixin, Page):
+    beneficiary_photo = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', blank=True, null=True)
+    beneficiary_name = models.CharField(blank=True, max_length=255)
+    Career_of_interest = models.CharField(blank=True, max_length=255, default="unknown")
+    beneficiary_story = RichTextField(blank=True, null=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField('beneficiary_name', partial_match=True, boost=10),
+        index.SearchField('Career_of_interest', partial_match=True),
+        index.SearchField('beneficiary_story', partial_match=True),
+    ]
+
+    content_panels = Page.content_panels + [
+        ImageChooserPanel('beneficiary_photo'),
+        FieldPanel('beneficiary_name'),
+        FieldPanel('Career_of_interest'),
+        FieldPanel('beneficiary_story'),
+    ]
+
+    @route(r"^search/$")
+    def search(self, request, *args, **kwargs):
+        search_query = request.GET.get("q", None)
+        self.sponsored_pages = self.get_twinning_beneficiary_page().objects.live().autocomplete("child_name", search_query)
+        if search_query:
+            self.sponsored_pages = self.twinning_beneficiary_page.search(search_query)
+        return self.render(request)
